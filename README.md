@@ -3,6 +3,13 @@
 Personal OS is a fully hosted personal dashboard. Phase 1 ships the app shell and the Tasks
 module. See [SPEC.md](SPEC.md) for the full product spec.
 
+## Live deployment
+
+| Piece | URL |
+| --- | --- |
+| App (Netlify) | https://personal-os-cecilia.netlify.app |
+| API (Railway) | https://personal-os-production-faff.up.railway.app |
+
 ## Repo layout
 
 | Path | What it is | Deploys to |
