@@ -775,6 +775,40 @@ textarea::placeholder {
   font-weight: 600;
 }
 
+/* ---------- password gate ---------- */
+
+.gate {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.gate-card {
+  width: 100%;
+  max-width: 360px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.gate-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gate-text {
+  margin: 0;
+  color: var(--text-2);
+}
+
+.gate-submit {
+  justify-content: center;
+}
+
 /* ---------- responsive ---------- */
 
 @media (max-width: 840px) {
