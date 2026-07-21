@@ -3,10 +3,18 @@ import Sidebar from './components/sidebar.jsx'
 import PasswordGate from './components/password-gate.jsx'
 import TasksModule from './modules/tasks/tasks-module.jsx'
 import { MenuIcon, LogoMark } from './components/icons.jsx'
-import { getSession, clearSession } from './lib/api.js'
+import { api, getSession, setSession, clearSession } from './lib/api.js'
+
+function readUnlockSecret() {
+  const match = window.location.hash.match(/^#unlock=(.+)$/)
+  if (!match) return null
+  history.replaceState(null, '', window.location.pathname + window.location.search)
+  return decodeURIComponent(match[1])
+}
 
 export default function App() {
   const [authed, setAuthed] = useState(() => Boolean(getSession()))
+  const [unlocking, setUnlocking] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
 
   useEffect(() => {
@@ -15,9 +23,29 @@ export default function App() {
     return () => window.removeEventListener('personal-os:unauthorized', onUnauthorized)
   }, [])
 
+  useEffect(() => {
+    const secret = readUnlockSecret()
+    if (!secret || getSession()) return
+    setUnlocking(true)
+    api
+      .login(secret)
+      .then((session) => {
+        setSession(session)
+        setAuthed(true)
+      })
+      .catch(() => {
+        /* fall through to the manual gate */
+      })
+      .finally(() => setUnlocking(false))
+  }, [])
+
   function signOut() {
     clearSession()
     setAuthed(false)
+  }
+
+  if (unlocking) {
+    return <div className="gate">Unlocking…</div>
   }
 
   if (!authed) {

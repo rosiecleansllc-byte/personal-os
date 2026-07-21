@@ -33,6 +33,7 @@ Build order is Phase 1 → 3. Modules not yet built still appear in the sidebar 
 
 **App shell + auth**
 - Single-user auth: one password gate for the UI, plus a bearer API key for programmatic writes (for Zapier/n8n or future Mac mini pushes).
+- The gate also accepts a bookmarkable unlock link (`/#unlock=<password>`) that signs in automatically, so the password never has to be typed. Sessions last 365 days per device.
 - Settings tab per module holds module config; a global Settings holds the API key display and rotation.
 
 ### Phase 2
